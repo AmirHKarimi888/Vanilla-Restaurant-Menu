@@ -11,7 +11,7 @@ class HeaderView {
 
     generateMarkup() {
         const markup = /*html*/`
-        <nav class="bg-white border-gray-200 dark:bg-gray-900">
+        <nav class="fixed top-0 left-0 w-full bg-white border-gray-200 dark:bg-gray-900">
   <div class="flex grid-cols-5 gap-2 items-center justify-between mx-auto p-4 shadow-md">
 
     <a href="https://flowbite.com/" class="col-span-1 ml-5 flex items-center">
