@@ -1,12 +1,24 @@
+import { getSearchResults } from "../../main";
+
 class HeaderView {
     header = document.querySelector("header");
 
     render() {
         this.generateMarkup();
+        this.headerHandlers();
     }
 
     clear() {
         this.header.innerHTML = "";
+    }
+
+    headerHandlers() {
+      this.header.querySelector("#searchBtn").addEventListener("click", async () => getSearchResults());
+      this.header.querySelector("#searchInput").addEventListener("keyup", async (event) => event.key == "Enter" ? getSearchResults() : null);
+    }
+
+    returnSearchInputValue() {
+      return this.header.querySelector("#searchInput").value;
     }
 
     generateMarkup() {
