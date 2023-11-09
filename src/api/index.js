@@ -1,1 +1,1 @@
-export const url = "http://localhost:3000/";
+export const url = "https://654d37b977200d6ba85a26ce.mockapi.io/amir/";

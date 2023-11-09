@@ -3,6 +3,7 @@ import "./src/views/template";
 import { state, Action } from "./src/model";
 import HeaderView from "./src/views/HeaderView";
 import RecipeView from "./src/views/RecipeView";
+import FooterView from "./src/views/FooterView";
 
 "likedRecipes" in localStorage ? null : localStorage.setItem("likedRecipes", "[]");
 "bookmarks" in localStorage ? null : localStorage.setItem("bookmarks", "[]");
@@ -13,6 +14,8 @@ RecipeView.render();
 
 export const getSearchResults = async () => {
   let searchInput = HeaderView.returnSearchInputValue();
+
+  RecipeView.renderListSpinner();
 
   await Action.getRecipes(searchInput)
     .then(() => RecipeView.renderRecipeList())
@@ -47,9 +50,14 @@ export const addBookmark = () => {
     RecipeView.renderRecipe();
 }
 
+
+FooterView.render();
+
 const init = () => {
   ["load", "hashchange"].forEach((e) => {
     window.addEventListener(e, async () => {
+
+        RecipeView.renderRecipeSpinner();
 
       let id = window.location.hash.slice(1);
       !id ? id = "" : null;

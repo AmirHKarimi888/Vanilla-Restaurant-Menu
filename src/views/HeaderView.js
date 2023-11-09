@@ -1,4 +1,5 @@
-import { getSearchResults } from "../../main";
+import { getSearchResults, getSelectedRecipe } from "../../main";
+import { state } from "../model";
 
 class HeaderView {
     header = document.querySelector("header");
@@ -25,13 +26,33 @@ class HeaderView {
 
     renderBookmarksView() {
       const markup = /*html*/`
-      <div class="bookmarksBackdrop fixed top-0 left-0 w-full h-screen bg-zinc-400/50 grid justify-center items-center">
-        <div class="bookmarksList w-[360px] p-2 bg-zinc-100"></div>
+      <div class="bookmarksBackdrop fixed top-0 left-0 w-full h-screen bg-zinc-400/50 grid justify-center items-center overflow-y-scroll">
+        <div class="bookmarksList w-[360px] p-2 bg-zinc-100">
+        <ul class="w-full">
+        ${
+          state.bookmarks.map((recipe) => {
+            return(/*html*/`
+            <li id="${recipe?.id}" class="bookmarksListItem p-4 cursor-pointer border-b grid grid-cols-5 gap-5 justify-center items-center hover:bg-zinc-100 duration-500">
+              <img src="${recipe?.image_url}" class="col-span-2 mx-auto w-[50px] aspect-square rounded-full"/>
+              <div class="col-span-3">
+                <p class="text-sm">${recipe?.title}</p>
+                <p class="text-xs text-zinc-500">${recipe?.publisher}</p>
+              </div>
+            </li>
+            `)
+          }).join("")
+        }
+        </ul>
+        </div>
       </div>
       `
 
       document.querySelector(".bookmarks").insertAdjacentHTML("afterbegin", markup);
       document.querySelector(".bookmarksList").addEventListener("click", (event) => event.stopPropagation());
+
+      document.querySelectorAll(".bookmarksListItem").forEach((el) => {
+        el.addEventListener("click", async () => getSelectedRecipe(el.id));
+      })
     }
 
     clearBookmarksView() {
@@ -43,7 +64,7 @@ class HeaderView {
         <nav class="fixed top-0 left-0 w-full bg-white border-gray-200 dark:bg-gray-900">
   <div class="flex grid-cols-5 gap-2 items-center justify-between mx-auto p-4 shadow-md">
 
-    <a href="https://flowbite.com/" class="col-span-1 ml-5 flex items-center">
+    <a href="/" class="col-span-1 ml-5 flex items-center">
       <span class="self-center text-2xl font-semibold whitespace-nowrap text-zinc-600 dark:text-white">Menu</span>
     </a>
 
