@@ -52,14 +52,27 @@ class RecipeView {
       const markup = /*html*/`
       ${
         !window.location.hash ? 
-        `
+        /*html*/`
         <div class="w-full h-screen grid justify-center items-center">
           <p class="text-sm p-2 bg-yellow-600 rounded-full text-white text-center shadow-lg">Search for something!</p>
         </div>
         ` : 
-        `
-        <div style="background: url('${state.recipe?.image_url}'); background-size: cover;background-position: right top;background-repeat: no-repeat;" class="w-full h-[300px]">
-              
+        /*html*/`
+        
+        <div class="p-2 rounded-sm bg-zinc-100 w-[80%] aspect-[1, 1.2] mx-auto text-zinc-800 text-center shadow-lg">
+        <img src="${state.recipe?.image_url}" class="mx-auto my-5 w-[400px] h-[450px] max-sm:w-[200px] max-sm:h-[400px]  rounded-lg duration-500 shadow-lg" />
+        <p class=" italic text-lg">${state.recipe?.title}</p>
+        <p class="text-md text-zinc-500 my-5">${state.recipe?.publisher}</p>
+
+        <div class="grid grid-cols-2">
+          <div class=" flex justify-start items-center">
+            <button id="likeBtn" class="w-[50px] aspect-square"><i class="fa fa-heart-o"></i></button>
+          </div>
+          <div class=" flex justify-end items-center">
+            <button id="bookmarkBtn" class="w-[50px] aspect-square"><i class="fa fa-bookmark-o"></i></button>
+          </div>
+          
+        </div>
         </div>
         `
       }
@@ -82,7 +95,7 @@ class RecipeView {
           
           </div>
 
-          <div class="recipe col-span-2 max-sm:col-span-4 bg-zinc-100">
+          <div class="recipe col-span-2 max-sm:col-span-4 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 grid justify-center items-center p-2">
 
           </div>
         </div>

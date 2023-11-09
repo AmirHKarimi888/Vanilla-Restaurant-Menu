@@ -46,12 +46,7 @@ class HeaderView {
       </div>
     </div>
 
-    <div class="col-span-2 mr-5 text grid grid-cols-2 justify-center items-center">
-      <button type="button"
-        id="addRecipeBtn"
-        class="flex grid-cols-2 gap-5 items-center p-2 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-        <i class="fa fa-edit"></i> Add
-      </button>
+    <div class="col-span-2 mr-5 text grid grid-cols-1 justify-center items-center">
 
       <button type="button"
         id="showBookmarksBtn"
