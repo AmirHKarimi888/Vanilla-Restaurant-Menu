@@ -17,13 +17,22 @@ class HeaderView {
       this.header.querySelector("#searchBtn").addEventListener("click", async () => {
  getSearchResults();
 
-document.querySelector(".recipeList").classList.remove("max-sm:col-span-3");
-          document.querySelector(".recipeList").classList.add("max-sm:hidden");
+document.querySelector(".recipeList").classList.remove("max-sm:hidden");
+          document.querySelector(".recipeList").classList.add("max-sm:col-span-3");
 
-          document.querySelector(".recipe").classList.remove("max-sm:hidden");
-          document.querySelector(".recipe").classList.add("max-sm:col-span-3");
+          document.querySelector(".recipe").classList.remove("max-sm:col-span-3");
+          document.querySelector(".recipe").classList.add("max-sm:hidden");
 });
-      this.header.querySelector("#searchInput").addEventListener("keyup", async (event) => event.key == "Enter" ? getSearchResults() : null);
+      this.header.querySelector("#searchInput").addEventListener("keyup", async (event) => if(event.key == "Enter"){
+
+ getSearchResults();
+
+document.querySelector(".recipeList").classList.remove("max-sm:hidden");
+          document.querySelector(".recipeList").classList.add("max-sm:col-span-3");
+
+          document.querySelector(".recipe").classList.remove("max-sm:col-span-3");
+          document.querySelector(".recipe").classList.add("max-sm:hidden");
+});
       this.header.querySelector("#showBookmarksBtn").addEventListener("click", this.renderBookmarksView);
       this.header.querySelector(".bookmarks").addEventListener("click", this.clearBookmarksView);
     }
