@@ -51,7 +51,14 @@ class HeaderView {
       document.querySelector(".bookmarksList").addEventListener("click", (event) => event.stopPropagation());
 
       document.querySelectorAll(".bookmarksListItem").forEach((el) => {
-        el.addEventListener("click", async () => getSelectedRecipe(el.id));
+        el.addEventListener("click", async () => {
+          getSelectedRecipe(el.id);
+          document.querySelector(".recipeList").classList.remove("max-sm:col-span-3");
+          document.querySelector(".recipeList").classList.add("max-sm:hidden");
+
+          document.querySelector(".recipe").classList.remove("max-sm:hidden");
+          document.querySelector(".recipe").classList.add("max-sm:col-span-3");
+        });
       })
     }
 
@@ -62,9 +69,9 @@ class HeaderView {
     generateMarkup() {
         const markup = /*html*/`
         <nav class="fixed top-0 left-0 w-full bg-white border-gray-200 dark:bg-gray-900">
-  <div class="flex grid-cols-5 gap-2 items-center justify-between mx-auto p-4 shadow-md">
+  <div class="flex grid-cols-5 gap-2 items-center justify-between mx-auto p-5 shadow-md">
 
-    <a href="/" class="col-span-1 ml-5 flex items-center">
+    <a href="/" class="col-span-1 flex items-center">
       <span class="self-center text-2xl font-semibold whitespace-nowrap text-zinc-600 dark:text-white">Menu</span>
     </a>
 
@@ -84,11 +91,11 @@ class HeaderView {
       </div>
     </div>
 
-    <div class="col-span-2 mr-5 text grid grid-cols-1 justify-center items-center">
+    <div class="col-span-2 text grid grid-cols-1 justify-center items-center">
 
       <button type="button"
         id="showBookmarksBtn"
-        class="flex grid-cols-2 gap-2 items-center p-2 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+        class="flex grid-cols-2 gap-1 items-center p-2 justify-center text-sm max-sm:text-xs text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
         <i class="fa fa-bookmark-o"></i> Bookmarks
       </button>
     </div>

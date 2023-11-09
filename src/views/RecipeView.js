@@ -15,7 +15,14 @@ class RecipeView {
 
     recipeHandlers() {
       this.main.querySelectorAll(".recipeListItem").forEach((el) => {
-        el.addEventListener("click", async () => getSelectedRecipe(el.id));
+        el.addEventListener("click", async () => {
+          getSelectedRecipe(el.id);
+          document.querySelector(".recipeList").classList.remove("max-sm:col-span-3");
+          document.querySelector(".recipeList").classList.add("max-sm:hidden");
+
+          document.querySelector(".recipe").classList.remove("max-sm:hidden");
+          document.querySelector(".recipe").classList.add("max-sm:col-span-3");
+        });
       })
     }
 
@@ -87,6 +94,9 @@ class RecipeView {
         ` : 
         /*html*/`
         
+        <div class="flex items-start">
+          <button id="backToListBtn" class="hidden max-sm:block border border-white bg-white w-[36px] h-[36px] ml-1 rounded-full text-zinc-600"><i class="fa fa-arrow-left"></i><button>
+        </div>
         <div class="recipeContainer p-2 rounded-sm bg-zinc-100 w-[80%] aspect-[1/1.2] max-sm:w-[96%] max-sm:aspect-[1/0.5] mx-auto text-zinc-800 text-center shadow-lg">
         <img src="${state.recipe?.image_url}" class="mx-auto my-5 w-[400px] h-[450px] max-sm:w-[330px] max-sm:h-[400px]  rounded-lg duration-500 shadow-lg" />
         <p class=" italic text-lg">${state.recipe?.title}</p>
@@ -112,6 +122,15 @@ class RecipeView {
       if(document.querySelector(".recipeContainer")) {
         document.querySelector("#likeBtn").addEventListener("click", likeRecipe);
         document.querySelector("#bookmarksBtn").addEventListener("click", addBookmark);
+
+        document.querySelector("#backToListBtn").addEventListener("click", () => {
+
+          document.querySelector(".recipeList").classList.remove("max-sm:hidden");
+          document.querySelector(".recipeList").classList.add("max-sm:col-span-3");
+
+          document.querySelector(".recipe").classList.remove("max-sm:col-span-3");
+          document.querySelector(".recipe").classList.add("max-sm:hidden");
+        })
       }
     }
     
@@ -121,13 +140,13 @@ class RecipeView {
 
     generateMarkup() {
         const markup = /*html*/`
-        <div class="my-[150px] max-sm:my-[72px] max-sm:mb-[-72px] mx-auto shadow-lg lg:w-[78%] md:w-[85%] sm:w-[87%] max-sm:w-[100%] h-screen bg-white grid grid-cols-3 max-sm:grid-cols-7">
+        <div class="my-[150px] max-sm:my-[72px] max-sm:mb-[0px] mx-auto shadow-lg lg:w-[78%] md:w-[85%] sm:w-[87%] h-screen bg-white grid grid-cols-3 max-sm:w-[100%]">
 
-          <div class="recipeList overflow-y-scroll col-span-1 max-sm:col-span-3 border-r">
+          <div class="recipeList overflow-y-scroll col-span-1 border-r max-sm:hidden">
           
           </div>
 
-          <div class="recipe col-span-2 max-sm:col-span-4 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 grid justify-center items-center p-2">
+          <div class="recipe col-span-2 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 grid justify-center items-center p-2 max-sm:col-span-3">
 
           </div>
         </div>
