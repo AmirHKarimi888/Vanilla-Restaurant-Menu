@@ -15,10 +15,27 @@ class HeaderView {
     headerHandlers() {
       this.header.querySelector("#searchBtn").addEventListener("click", async () => getSearchResults());
       this.header.querySelector("#searchInput").addEventListener("keyup", async (event) => event.key == "Enter" ? getSearchResults() : null);
+      this.header.querySelector("#showBookmarksBtn").addEventListener("click", this.renderBookmarksView);
+      this.header.querySelector(".bookmarks").addEventListener("click", this.clearBookmarksView);
     }
 
     returnSearchInputValue() {
       return this.header.querySelector("#searchInput").value;
+    }
+
+    renderBookmarksView() {
+      const markup = /*html*/`
+      <div class="bookmarksBackdrop fixed top-0 left-0 w-full h-screen bg-zinc-400/50 grid justify-center items-center">
+        <div class="bookmarksList w-[360px] p-2 bg-zinc-100"></div>
+      </div>
+      `
+
+      document.querySelector(".bookmarks").insertAdjacentHTML("afterbegin", markup);
+      document.querySelector(".bookmarksList").addEventListener("click", (event) => event.stopPropagation());
+    }
+
+    clearBookmarksView() {
+      document.querySelector(".bookmarks").innerHTML = "";
     }
 
     generateMarkup() {
@@ -56,6 +73,10 @@ class HeaderView {
     </div>
   </div>
 </nav>
+
+<div class="bookmarks">
+
+</div>
         `
         this.clear();
         this.header.insertAdjacentHTML("afterbegin", markup);

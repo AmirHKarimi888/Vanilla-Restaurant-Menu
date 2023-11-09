@@ -1,4 +1,4 @@
-import { getSelectedRecipe } from "../../main";
+import { addBookmark, getSelectedRecipe, likeRecipe } from "../../main";
 import { state } from "../model";
 
 class RecipeView {
@@ -59,28 +59,32 @@ class RecipeView {
         ` : 
         /*html*/`
         
-        <div class="p-2 rounded-sm bg-zinc-100 w-[80%] aspect-[1, 1.2] mx-auto text-zinc-800 text-center shadow-lg">
+        <div class="recipeContainer p-2 rounded-sm bg-zinc-100 w-[80%] aspect-[1, 1.2] mx-auto text-zinc-800 text-center shadow-lg">
         <img src="${state.recipe?.image_url}" class="mx-auto my-5 w-[400px] h-[450px] max-sm:w-[200px] max-sm:h-[400px]  rounded-lg duration-500 shadow-lg" />
         <p class=" italic text-lg">${state.recipe?.title}</p>
         <p class="text-md text-zinc-500 my-5">${state.recipe?.publisher}</p>
 
         <div class="grid grid-cols-2">
           <div class=" flex justify-start items-center">
-            <button id="likeBtn" class="w-[50px] aspect-square"><i class="fa fa-heart-o"></i></button>
+            <button id="likeBtn" class="w-[50px] aspect-square"><i class="${ state.likedRecipes.includes(state.recipe?.id) ? 'fa fa-heart text-red-500' : 'fa fa-heart-o' }"></i></button>
           </div>
           <div class=" flex justify-end items-center">
-            <button id="bookmarkBtn" class="w-[50px] aspect-square"><i class="fa fa-bookmark-o"></i></button>
+            <button id="bookmarksBtn" class="w-[50px] aspect-square"><i class="${ state.bookmarks.find(b => b?.id == state.recipe?.id ? b : null) ? 'fa fa-bookmark' : 'fa fa-bookmark-o' }"></i></button>
           </div>
           
         </div>
         </div>
         `
       }
-
       `
 
       this.clearRecipe();
       this.main.querySelector(".recipe").insertAdjacentHTML("afterbegin", markup);
+
+      if(document.querySelector(".recipeContainer")) {
+        document.querySelector("#likeBtn").addEventListener("click", likeRecipe);
+        document.querySelector("#bookmarksBtn").addEventListener("click", addBookmark);
+      }
     }
     
     clearRecipe() {
