@@ -25,6 +25,16 @@ class Actions {
             console.log(err.message);
         }
     }
+
+    async getRecipe(id) {
+        try {
+            await fetch(`${url}recipes/${id}`)
+            .then(res => res.json())
+            .then(data => state.recipe = data)
+        } catch(err) {
+            console.log(err.message);
+        }
+    }
 }
 
 export const Action = new Actions();
